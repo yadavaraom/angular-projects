@@ -1,0 +1,198 @@
+<div class="card">
+  <div class="card-header animation-model">
+      <div class="row">
+          <div class="col-sm-6">
+    <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="add(); openMyModal('effect-13'); nextLibAvailable=true">
+      <i class="icofont icofont-plus m-r-5"></i> Add User
+    </button>
+</div>
+<div class="col-sm-6">
+    <button type="button" class="btn btn-primary waves-effect waves-light f-right d-inline-block md-trigger" (click)="add(); openMyModal('effect-133')">
+        <i class="icofont icofont-plus m-r-5"></i> Add Pemissions
+    </button>
+  </div>
+  </div>
+  <div class="card-body">
+    <div class="table-content crm-table">
+      <div class="project-table">
+        <div id="crm-contact" class="dt-responsive">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+              <div>
+                <label class="label-control">Show
+                  <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                    <option [ngValue]="10">10</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+                  entries
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6">
+              <div style="text-align: right;">
+                <label>Search:
+                  <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search"
+                    placeholder="Search name">
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="panel-heading">User information</div>-->
+          <div class="table-responsive">
+              <table class="table table-striped task-list-table table-bordered full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+              [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+         <thead>
+           <tr>
+                  <th>
+                    <mfDefaultSorter by="USER_FIRST_NAME">First Name</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="USER_LAST_NAME">Last Name</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="USER_NAME">User Name</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="ROLE_NAME">ROLE_NAME</mfDefaultSorter>
+                  </th>
+                  <th>
+                    <mfDefaultSorter by="USER_FLAG">USER_FLAG</mfDefaultSorter>
+                  </th>
+
+                  <th>
+                    <mfDefaultSorter>Action</mfDefaultSorter>
+                  </th>
+                </tr>
+                <tr>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of mf.data; let i = index;">
+                  <td>{{item.USER_FIRST_NAME}}</td>
+                  <td>{{item.USER_LAST_NAME}}</td>
+                  <td>{{item.USER_NAME}}</td>
+                  <td>{{item.ROLE_NAME}}</td>
+                  <td>{{item.USER_FLAG}}</td>
+                  <td class="action-icon">
+                    <a href="javascript:;"  placement="top" ngbTooltip="View"  class="m-r-15 crm-action-view text-info" (click)="edit(item);openMyModal('effect-13'); nextLibAvailable=false"><i
+                        class="fa fa-book"></i></a>
+                    <a href="javascript:;" placement="top" ngbTooltip="Edit" class="m-r-15 crm-action-edit text-primary" (click)="edit(item);openMyModal('effect-13'); nextLibAvailable=true" ><i
+                        class="fa fa-edit"></i></a>
+                        <a href="javascript:;" placement="top" ngbTooltip="Active/InActve" class="crm-action-delete text-danger"><mat-slide-toggle color="primary" [(ngModel)]="item.USER_STATUS" (change)="onChange(item)"></mat-slide-toggle></a>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="10">
+                    <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Contact Start Model -->
+<app-modal-animation [modalID]="'effect-13'" [modalClass]="'md-effect-13'">
+  <h3 class="f-26" *ngIf="!user.USER_ID">Add User</h3>
+  <h3 class="f-26" *ngIf="user.USER_ID">Update User</h3>
+  <div class="text-center">
+    <div class="input-group">
+      <span class="input-group-prepend" id="basic-addon1"><label class="input-group-text">First Name</label></span>
+      <input type="text" [disabled]="!nextLibAvailable" [(ngModel)]="user.USER_FIRST_NAME" class="form-control" placeholder="First Name">
+    </div>
+    <div class="input-group">
+      <span class="input-group-prepend" id="basic-addon1"><label class="input-group-text">Last Name</label></span>
+      <input type="text" [disabled]="!nextLibAvailable" [(ngModel)]="user.USER_LAST_NAME" class="form-control" placeholder="Last Name">
+    </div>
+    <div class="input-group">
+      <span class="input-group-prepend" id="basic-addon1"><label class="input-group-text">User Name</label></span>
+      <input type="text" [disabled]="!nextLibAvailable" [(ngModel)]="user.USER_NAME" class="form-control" placeholder="User Name">
+    </div>
+    <div class="input-group">
+      <span class="input-group-prepend" id="basic-addon1"><label class="input-group-text">Password &nbsp;</label></span>
+      <input type="text" [disabled]="!nextLibAvailable" [(ngModel)]="user.USER_PWD" class="form-control" placeholder="Password">
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+      <label>Select Role</label>
+      <ng-select  [disabled]="!nextLibAvailable" [items]="roleList"                 
+                 bindLabel="ROLE_NAME"
+                 bindValue="ROLE_ID"                 
+                 placeholder="Select Role"
+                 [(ngModel)]="user.ROLE_ID">
+      </ng-select>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+      <div class="col-sm-2" *ngIf="user.USER_ID">
+    <button type="button" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block" 
+      (click)="update(user,$event)">Update</button>
+      </div>
+      <div class="col-sm-2" *ngIf="!user.USER_ID">
+    <button type="button" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block" 
+    
+      (click)="save($event)">Save</button>
+    </div>
+    <div class="col-sm-4">
+    <button (click)="closeMyModal($event)" class="btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">Close</button>
+  </div>
+  </div>
+  </div>
+  <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+</app-modal-animation>
+
+
+<app-modal-animation [modalID]="'effect-133'" [modalClass]="'md-effect-13'">
+    <h3 class="f-26">Assign Pemissions to Role</h3>
+    <div class="text-center">
+      
+      <div class="row">
+          <div class="col-sm-12">
+        <label>Select Role</label>
+        <ng-select [items]="roleList"  (change)="role_per()"             
+                   bindLabel="ROLE_NAME"
+                   bindValue="ROLE_ID"                 
+                   placeholder="Select Role"
+                   [(ngModel)]="permission.ROLE_ID">
+        </ng-select>
+      </div>
+      </div>
+      
+      <div class="row">
+          <div class="col-sm-12">
+        <label>Select PERMISSION</label>
+        <ng-select [items]="permissionList"                 
+                   bindLabel="PERMISSION_NAME"
+                   [multiple]="true"
+                   bindValue="PERMISSION_ID"                 
+                   placeholder="Select PERMISSION"
+                   [(ngModel)]="permission.PERMISSION_arr">
+        </ng-select>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+        </div>
+        <div class="col-sm-2">
+          <button type="button" class="btn btn-primary waves-effect m-r-20 f-w-600 d-inline-block" *ngIf="!user.USER_ID"
+            (click)="permission_save($event)">Save</button>
+        </div>
+        <div class="col-sm-2">    
+          <button (click)="closeMyModal($event)" class="btn btn-danger waves-effect m-r-20 f-w-600 md-close d-inline-block">Close</button>
+        </div>
+        <div class="col-sm-4">
+          </div>
+          </div>  
+    </div>
+    <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><i class="icofont icofont-ui-close"></i></button>
+  </app-modal-animation>
+  

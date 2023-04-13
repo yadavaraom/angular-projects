@@ -1,0 +1,243 @@
+<script>
+
+</script>
+
+<div class="page-body">
+  
+  <div class="row">
+    <!-- site Analytics card start -->
+    <div class="col-xl-12 col-sm-12">
+      <app-card [title]="'TEAM SEGMENT'" [classHeader]="'true'" [headerClass]="'borderless'">
+        <div  >
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label></label>
+                            <input type="text" name="txtSpeechSearchMovieName" id="txtSpeechSearchMovieName" 
+                                   placeholder="Click below button and then say something!!!"  [(ngModel)]="speechData">
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+                <br />
+                <div class="text-center">
+                    <button class="btn btn-info btn-fill btn-wd" name="btnActivateSpeechSearchMovie" id="btnActivateSpeechSearchMovie" (click)="activateSpeechSearchMovie()"
+                            [disabled]="!showSearchButton">
+                        Enable Speech Search
+                    </button>
+                </div>
+                <br />
+            </div>
+        
+        </div>
+      </app-card>
+    
+    </div>
+  </div>
+</div>
+
+<!-- <div class="chat-box">
+  <div class="chat-closed" (click)="chartNow($event,true)" [className]="condition ? 'hide' : ''"> Chat Now </div>
+  <div class="chat-header hide" (click)="chartNow($event,false)" [className]="condition ? '' : 'hide'"><div class="box"></div>AVID ReportBot</div>
+  <div class="chat-content hide" (click)="chartNow($event,false)" [className]="condition ? '' : 'hide'" id="response_div" >
+  <div class="clearfix"></div>
+      <div id="user_input_div">
+          <input id="input" type="text"> 
+          <button class="btn btn-default" id="rec" type="button"> <i class="fa fa-microphone"  ng-class="{ 'text-success': micon }"  aria-hidden="true"></i>Chat</button>    
+      </div>
+  </div>
+  </div> -->
+
+
+
+
+  <div class="chat-box">
+    <div class="chat-closed"> Chat Now </div>
+    <div class="chat-header hide"><div class="box"></div>AVID ReportBot</div>
+    <div class="chat-content hide" id="response_div" >
+    <div class="clearfix"></div>
+        <div id="user_input_div">
+            <input id="input" type="text"> 
+            <button class="btn btn-default" id="rec" type="button"> <i class="fa fa-microphone"  ng-class="{ 'text-success': micon }"  aria-hidden="true"></i>Chat</button>    
+        </div>
+    </div>
+    </div>
+
+
+<div id="resp_to_dlgflw"></div>
+
+
+<!-- <script>
+  
+
+   
+   function getCookie(cname) {
+       var name = cname + "=";
+       var ca = document.cookie.split(';');
+       for(var i=0; i<ca.length; i++) {
+           var c = ca[i];
+           while (c.charAt(0)==' ') {
+               c = c.substring(1);
+           }
+           if (c.indexOf(name) == 0) {
+               return c.substring(name.length, c.length);
+           }
+       }
+       return "";
+     }
+     var accessToken ="6835e1f68e7d41dbb63d67c5ba84f061";
+       //var accessToken ="8c21e90c6ca24f2eb2cdaed26fae2dbb";
+       var baseUrl = "https://api.dialogflow.com/v1/";
+       $(document).ready(function() {
+           $("#input").keypress(function(event) {
+               if (event.which == 13) {
+                   event.preventDefault();
+                   send();
+                   this.value = '';
+               }
+           });
+           $("#rec").click(function(event) {
+               switchRecognition();
+           });
+       });
+       var recognition;
+       function startRecognition() {
+           recognition = new webkitSpeechRecognition();
+           recognition.onstart = function(event) {
+               updateRec();
+           };
+           recognition.onresult = function(event) {
+               var text = "";
+               for (var i = event.resultIndex; i < event.results.length; ++i) {
+                   text += event.results[i][0].transcript;
+               }
+               setInput(text);
+               stopRecognition();
+           };
+           recognition.onend = function() {
+               stopRecognition();
+           };
+           recognition.lang = "en-US";
+           recognition.start();
+       }
+       function stopRecognition() {
+           if (recognition) {
+               recognition.stop();
+               recognition = null;
+           }
+           updateRec();
+       }
+       function switchRecognition() {
+           if (recognition) {
+               stopRecognition();
+           } else {
+               startRecognition();
+           }
+       }
+       function setInput(text) {
+           $("#input").val(text);
+           send();
+       }
+       function updateRec() {
+           $("#rec").text(recognition ?  'Stop' : "Speak");
+       }
+   function send() {
+           var text = $("#input").val();
+        var new_input_div = document.createElement('div');
+        new_input_div.className="form-group";
+        new_input_div.innerHTML = '<span class="fa fa-lg fa-user pb-chat-fa-user"> </span><span class="label label-default pb-chat-labels pb-chat-labels-left">' + text + '</span>';
+        document.getElementById('response_div').insertBefore(new_input_div, document.getElementById('user_input_div'));
+           $.ajax({
+               type: "POST",
+               url: baseUrl + "query?v=20150910",
+               contentType: "application/json; charset=utf-8",
+               dataType: "json",
+               headers: {
+                   "Authorization": "Bearer " + accessToken
+               },
+               data: JSON.stringify({ query: text, lang: "en", sessionId: getCookie('unique_key') }),
+               success: function(data) {
+                   var respText = data.result.fulfillment.speech;
+                   //console.log("Res: " + respText);
+                   setResponse(respText);
+               },
+               error: function() {
+                   setResponse("Internal Server Error");
+               }
+           });
+       }
+       function setResponse(val) {
+           var new_resp_div = document.createElement('div');
+           new_resp_div.className="form-group pull-right pb-chat-labels-right";
+           new_resp_div.innerHTML = '<span class="label label-primary pb-chat-labels pb-chat-labels-primary">' + val + '</span><span class="fa fa-lg fa-user pb-chat-fa-user"></span>';
+           document.getElementById('response_div').insertBefore(new_resp_div, document.getElementById('user_input_div'));
+           var height = 0;
+           $('#response_div div').each(function(i, value){
+               height += parseInt($(this).height());
+               //alert("height =" + height);
+           });
+           
+           height += parseInt($(this).height())
+           height += '';
+           
+           $('#response_div').animate({scrollTop: height});
+       }
+
+</script> -->
+
+
+<style type="text/css">
+  .chat-box {
+      position:fixed;
+      right:15px;
+      bottom:0;
+      box-shadow:0 0 0.1em #000;
+  }
+  
+  .chat-closed {
+      width: 250px;
+      height: 35px;
+      background: #8bc34a;
+      line-height: 35px;
+      font-size: 18px;
+      text-align: center;
+      border:1px solid #777;
+      color: #000;
+  }
+  
+  .chat-header {
+      width: 250px;
+      height: 35px;
+      background: #8bc34a;
+      line-height: 33px;
+      text-indent: 20px;
+      border:1px solid #777;
+      border-bottom:none;
+  }
+  
+  .chat-content{
+      width:250px;
+      height:300px;
+      background:#ffffff;
+      border:1px solid #777;
+      overflow-y:auto;
+      word-wrap: break-word;
+  }
+  
+  .box{
+      width:10px;
+      height:10px;
+      background:green;
+      float:left;
+      position:relative;
+      top: 11px;
+      left: 10px;
+      border:1px solid #ededed;
+  }
+  
+  .hide {
+      display:none;
+  }
+  </style>

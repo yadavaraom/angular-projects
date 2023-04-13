@@ -1,0 +1,17 @@
+
+<div class="page-body">
+  <!--<simple-notifications [options]="options"></simple-notifications>-->
+      <app-card [title]="'Nationality'" [classHeader]="'true'" [headerClass]="'borderless'">
+      
+      <highcharts-chart 
+      [Highcharts]="Highcharts"
+      [options]="optFromInputNationalty"
+      [(update)]="updateFromInput"
+      [oneToOne]=true
+      (chartInstance)="logChartInstance($event)"
+
+      style="width: 90%; height: 400px; display: block;"
+    ></highcharts-chart>
+
+      </app-card>
+</div>

@@ -1,0 +1,64 @@
+
+<div class="page-body">
+  <!--<simple-notifications [options]="options"></simple-notifications>-->
+  <div class="row">
+    <!-- site Analytics card start -->
+    <div class="col-xl-6 col-sm-12">
+      <app-card [title]="'FINANCE SEGMENT'" [classHeader]="'true'" [headerClass]="'borderless'">
+     
+          <div id="seo-ecommerce-barchart" style="height: 200px"></div>
+        
+     
+        <!-- <span class="code-header"><span class="text-muted">year wise premium and claims</span></span> -->
+      </app-card>
+    </div>
+    <div class="col-xl-6 col-sm-12">
+      <app-card [title]="'MARKET SEGMENT'" [classHeader]="'true'" [headerClass]="'borderless'">
+      
+      <highcharts-chart 
+      [Highcharts]="Highcharts"
+      [options]="optFromInput"
+      [(update)]="updateFromInput"
+      [oneToOne]=true
+      (chartInstance)="logChartInstance($event)"
+
+      style="width: 100%; height: 200px; display: block; margin-left: -89px"
+    ></highcharts-chart>
+
+      </app-card>
+    
+    </div>
+  </div>
+  <div class="row">
+    <!-- site Analytics card start -->
+    <div class="col-xl-6 col-sm-12">
+      <app-card [title]="'PRODUCT SEGMENT'" [classHeader]="'true'" [headerClass]="'borderless'">
+        
+      <highcharts-chart 
+      [Highcharts]="Highcharts"
+      [options]="productSegmentFromInput"
+      [(update)]="updateproductSegmentFromInput"
+      [oneToOne]=true
+      (chartInstance)="logChartInstance($event)"
+
+      style="width: 100%; height: 200px; display: block; margin-left: -155px"
+    ></highcharts-chart>
+      </app-card>
+    </div>
+    <div class="col-xl-6 col-sm-12">
+      <app-card [title]="'TEAM SEGMENT'" [classHeader]="'true'" [headerClass]="'borderless'">
+        <div  style="width: 100%; height: 200px; display: block;">
+        
+        </div>
+      </app-card>
+    
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+

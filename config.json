@@ -1,0 +1,21 @@
+﻿{
+    "connectionString": "mongodb://localhost:27017/mean-stack-app",
+    "apiUrl_server": "https://server.aviddatascience.com:3333/api",
+    "apiUrl": "http://localhost:3333/api",
+    "secret": "MY APP",
+    "connectionStringmssql": {
+    "server": "50.3.81.168",
+    "user": "avid_app",
+    "password": "ptlavid_app01",
+    "database": "adss_dev",
+    "port" : 3743,
+    "options": {
+        "encrypt": true
+    },
+    "pool": {
+        "max": 10,
+        "min": 0,
+        "idleTimeoutMillis": 30000
+    }
+    }
+}

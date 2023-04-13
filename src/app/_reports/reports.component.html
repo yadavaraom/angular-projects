@@ -1,0 +1,29 @@
+
+<div class="page-body">
+  <!--<simple-notifications [options]="options"></simple-notifications>-->
+    <div class="row">
+    <!-- site Analytics card start -->
+    <div class="col-xl-12 col-sm-12">
+   <app-card [title]="'PRODUCT SEGMENT'" [classHeader]="'true'" [headerClass]="'borderless'">        
+  <!--  <highcharts-chart  
+    [Highcharts]="Highcharts"
+    [options]="optFromInput"
+    [(update)]="updateFromInput"
+    [oneToOne]=true
+    (chartInstance)="logChartInstance($event)"
+
+    style="width: 100%; height: 400px; display: block; margin-left: -155px"
+  ></highcharts-chart> -->
+
+  <highcharts-chart style="width: 100%; display: block"
+	[Highcharts]="Highcharts"
+  [options]="optFromInput"
+  [(update)]="updateFromInput"
+  [oneToOne]=true
+  (chartInstance)="logChartInstance($event)"
+  style="width: 100%; height: 400px; display: block; margin-left: -155px"
+	>
+</highcharts-chart>
+
+    </app-card>
+</div>
